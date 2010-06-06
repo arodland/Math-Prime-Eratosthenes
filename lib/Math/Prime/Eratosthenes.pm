@@ -45,3 +45,39 @@ sub gen_primes {
 }
 
 __PACKAGE__
+__END__
+
+=head1 SYNOPSIS
+
+    use Math::Prime::Eratosthenes qw(gen_primes);
+    my $prime_gen = gen_primes;
+    print $prime_gen->(), "\n" for 1..5; # 2, 3, 5, 7, 11
+
+=head1 DESCRIPTION
+
+This is a quick and fairly simple pure-perl module for generating primes. It
+uses the Sieve of Eratosthenes, and currently only focuses on the case where
+you want to generate all primes in sequence starting with 2. When working with
+small primes it's fairly efficient; however, generating all of the primes to
+100,000,007 takes about 2 minutes on my machine and more than 1GB for the
+witness table.
+
+This module is specifically designed to run multiple generators in parallel
+without wasting effort; only the generator on the "leading edge" does
+prime-generation work, while the others reuse its values.
+
+If you want any fancier functionality, or more efficiency, please consider
+using L<Math::Prime::XS>.
+
+=head1 CREDIT
+
+Much inspiration for the algorithm was drawn from
+L<http://code.activestate.com/recipes/117119/|ActiveState Recipes>.
+
+=head1 FUNCTIONS
+
+=head2 gen_primes
+
+Create a new prime generator, starting at 2.
+
+=cut
